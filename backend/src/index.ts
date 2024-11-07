@@ -11,7 +11,25 @@ import { UserRouter } from "./Routes/UserRouter";
 const app = express();
 const port = parseInt(process.env.PORT, 10);
 
-app.use(cors());
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (
+        !origin ||
+        [
+          "https://www.hairsalonbookingapp.pawelsobon.pl",
+          "https://hairsalonbookingapp.pawelsobon.pl",
+        ].includes(origin)
+      ) {
+        callback(null, true);
+      } else {
+        callback(new Error("Unauthorized origin"));
+      }
+    },
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 app.use(cookieParser());
 
