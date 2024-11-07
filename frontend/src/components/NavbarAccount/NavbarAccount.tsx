@@ -2,7 +2,6 @@ import { useContext, useState } from "react";
 import { IoLogInOutline } from "react-icons/io5";
 import { RxAvatar } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 
 import { UserContext } from "../../context/UserContext";
 import { InfoBox } from "../InfoBox";
