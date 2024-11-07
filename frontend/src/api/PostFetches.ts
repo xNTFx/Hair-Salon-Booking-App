@@ -1,14 +1,15 @@
 import axios from "axios";
 import { AxiosError } from "axios";
 import { CreateReservationTypes } from "../types/Types";
+import { FieldValues } from "react-hook-form";
+import { apiURL } from "./apiURL";
 
 const createReservationWithoutAuth = async (
   reservationData: CreateReservationTypes
 ) => {
   try {
-    console.log(reservationData);
     const response = await axios.post(
-      "http://localhost:3000/reservations/createWithoutAuth",
+      `${apiURL}/reservations/createWithoutAuth`,
       reservationData,
       {}
     );
@@ -30,7 +31,7 @@ const createReservationWithAuth = async (
 ) => {
   try {
     const response = await axios.post(
-      "http://localhost:3000/reservations/createWithAuth",
+      `${apiURL}/reservations/createWithAuth`,
       reservationData,
       {
         headers: {
@@ -57,7 +58,7 @@ const cancelReservation = async (
 ) => {
   try {
     const response = await axios.put(
-      `http://localhost:3000/reservations/cancel/${reservationId}`,
+      `${apiURL}/reservations/cancel/${reservationId}`,
       {},
       {
         headers: {
@@ -77,8 +78,49 @@ const cancelReservation = async (
   }
 };
 
+const loginAction = async (data: FieldValues) => {
+  const response = await axios.post(
+    `${apiURL}/auth/login`,
+    {
+      username: data.email.trim(),
+      password: data.password.trim(),
+    },
+    {
+      withCredentials: true,
+    }
+  );
+  return response;
+};
+
+const registerAction = async (data: FieldValues) => {
+  const response = await axios.post(
+    `${apiURL}/auth/register`,
+    {
+      username: data.email.trim(),
+      password: data.password.trim(),
+    },
+    {
+      withCredentials: true,
+    }
+  );
+  return response;
+};
+
+const logoutFunction = async () => {
+  await axios.post(
+    `${apiURL}/auth/logout`,
+    {},
+    {
+      withCredentials: true,
+    }
+  );
+};
+
 export {
   createReservationWithoutAuth,
   createReservationWithAuth,
   cancelReservation,
+  loginAction,
+  registerAction,
+  logoutFunction,
 };

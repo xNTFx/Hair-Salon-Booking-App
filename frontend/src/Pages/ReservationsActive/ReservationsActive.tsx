@@ -2,7 +2,7 @@ import Swal from "sweetalert2";
 import convertTime from "../../utils/convertTime";
 import "./ReservationsActive.css";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { fetchActiveReservations } from "../../api/GetFetches";
+import { fetchActiveReservations, refreshToken } from "../../api/GetFetches";
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../../context/UserContext";
 import LoadingPageComponent from "../../components/LoadingComponents/LoadingPageComponent";
@@ -10,7 +10,6 @@ import formatTime from "../../utils/formatTime";
 import { Link } from "react-router-dom";
 import { cancelReservation } from "../../api/PostFetches";
 import { useNotification } from "../../context/NotificationContext";
-import axios from "axios";
 
 interface Service {
   id: number;
@@ -38,7 +37,6 @@ interface Reservation {
 
 export default function ReservationsActive() {
   const { user } = useContext(UserContext);
-  console.log(user);
   const { showNotification } = useNotification();
   const queryClient = useQueryClient();
 
@@ -47,12 +45,8 @@ export default function ReservationsActive() {
   useEffect(() => {
     const fetchToken = async () => {
       if (user) {
-        const refreshResponse = await axios.get(
-          "http://localhost:3000/auth/refresh",
-          {
-            withCredentials: true,
-          }
-        );
+        const refreshResponse = await refreshToken();
+
         setAccessToken(refreshResponse.data.accessToken);
       }
     };
@@ -89,12 +83,7 @@ export default function ReservationsActive() {
   };
 
   const mutation = useMutation(async (reservationId: number | null) => {
-    const refreshResponse = await axios.get(
-      "http://localhost:3000/auth/refresh",
-      {
-        withCredentials: true,
-      }
-    );
+    const refreshResponse = await refreshToken();
 
     return cancelReservation(reservationId, refreshResponse.data.accessToken);
   });

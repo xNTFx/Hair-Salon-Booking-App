@@ -1,13 +1,12 @@
 import convertTime from "../../utils/convertTime";
 import "./ReservationsHistory.css";
 import { useQuery } from "react-query";
-import { fetchHistoryReservations } from "../../api/GetFetches";
+import { fetchHistoryReservations, refreshToken } from "../../api/GetFetches";
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../../context/UserContext";
 import LoadingPageComponent from "../../components/LoadingComponents/LoadingPageComponent";
 import formatTime from "../../utils/formatTime";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 interface Service {
   id: number;
@@ -41,12 +40,8 @@ export default function ReservationsHistory() {
   useEffect(() => {
     const fetchToken = async () => {
       if (user) {
-        const refreshResponse = await axios.get(
-          "http://localhost:3000/auth/refresh",
-          {
-            withCredentials: true,
-          }
-        );
+        const refreshResponse = await refreshToken();
+
         setAccessToken(refreshResponse.data.accessToken);
       }
     };

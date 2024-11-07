@@ -3,11 +3,11 @@ import { useContext, useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
-import axios from "axios";
 import "./Register.css";
 import { useNotification } from "../../context/NotificationContext";
 import { UserContext } from "../../context/UserContext";
 import Cookies from "js-cookie";
+import { registerAction } from "../../api/PostFetches";
 
 const formSchema = z
   .object({
@@ -56,16 +56,7 @@ function Register() {
     if (isSubmitting) return;
     setIsSubmitting(true);
     try {
-      const response = await axios.post(
-        "http://localhost:3000/auth/register",
-        {
-          username: data.email.trim(),
-          password: data.password.trim(),
-        },
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await registerAction(data);
 
       reset();
       if (response.status === 201) {

@@ -3,11 +3,11 @@ import { useContext, useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
-import axios from "axios";
 import Cookies from "js-cookie";
 import "./Login.css";
 import { useNotification } from "../../context/NotificationContext";
 import { UserContext } from "../../context/UserContext";
+import { loginAction } from "../../api/PostFetches";
 
 const formSchema = z.object({
   email: z
@@ -47,16 +47,7 @@ function Login() {
     setIsSubmitting(true);
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/auth/login",
-        {
-          username: data.email.trim(),
-          password: data.password.trim(),
-        },
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await loginAction(data);
 
       if (response && setUser) {
         const { user } = response.data;

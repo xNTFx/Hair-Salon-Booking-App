@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Cookies from "js-cookie";
 import { User } from "../types/Types";
+import { getUserDetails, refreshToken } from "../api/GetFetches";
 
 export default function useAuthLogged() {
   const [user, setUser] = useState<User | null>(null);
@@ -21,25 +21,13 @@ export default function useAuthLogged() {
 
     const fetchUserData = async () => {
       try {
-        const refreshResponse = await axios.get(
-          "http://localhost:3000/auth/refresh",
-          {
-            withCredentials: true,
-          }
-        );
+        const refreshResponse = await refreshToken();
 
         const accessToken = refreshResponse.data.accessToken;
 
-        const response = await axios.get("http://localhost:3000/user/profile", {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-          withCredentials: true,
-        });
+        const response = await getUserDetails(accessToken);
 
         if (isMounted) {
-          console.log(response.data);
-
           setUser({
             id: response.data.id,
             username: response.data.username,

@@ -1,5 +1,5 @@
 const fetchServices = async () => {
-  const response = await fetch("http://localhost:3000/services");
+  const response = await fetch(`${apiURL}/services`);
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
@@ -7,7 +7,7 @@ const fetchServices = async () => {
 };
 
 const fetchEmployees = async () => {
-  const response = await fetch("http://localhost:3000/employees");
+  const response = await fetch(`${apiURL}/employees`);
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
@@ -20,7 +20,7 @@ const fetchAvaiableHours = async (
 ) => {
   if (employeeId === undefined) return;
   const response = await fetch(
-    `http://localhost:3000/available_hours/employee/${employeeId}/reservation_date/${date}/duration/${serviceDuration}`
+    `${apiURL}/available_hours/employee/${employeeId}/reservation_date/${date}/duration/${serviceDuration}`
   );
   if (!response.ok) {
     throw new Error("Network response was not ok");
@@ -29,11 +29,12 @@ const fetchAvaiableHours = async (
 };
 
 import axios, { AxiosError } from "axios";
+import { apiURL } from "./apiURL";
 
 const fetchActiveReservations = async (accessToken: string | null) => {
   try {
     const response = await axios.get(
-      "http://localhost:3000/reservations/active",
+      `${apiURL}/reservations/active`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -56,7 +57,7 @@ const fetchActiveReservations = async (accessToken: string | null) => {
 const fetchHistoryReservations = async (accessToken: string | null) => {
   try {
     const response = await axios.get(
-      "http://localhost:3000/reservations/history",
+      `${apiURL}/reservations/history`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -75,10 +76,32 @@ const fetchHistoryReservations = async (accessToken: string | null) => {
   }
 };
 
+const refreshToken = async () => {
+  const refreshResponse = await axios.get(
+    `${apiURL}/auth/refresh`,
+    {
+      withCredentials: true,
+    }
+  );
+  return refreshResponse;
+};
+
+const getUserDetails = async (accessToken: string) => {
+  const response = await axios.get(`${apiURL}/user/profile`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+    withCredentials: true,
+  });
+  return response;
+};
+
 export {
   fetchServices,
   fetchEmployees,
   fetchAvaiableHours,
   fetchActiveReservations,
   fetchHistoryReservations,
+  refreshToken,
+  getUserDetails,
 };

@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { useMutation, useQuery } from "react-query";
-import { fetchEmployees } from "../../api/GetFetches";
+import { fetchEmployees, refreshToken } from "../../api/GetFetches";
 import {
   createReservationWithoutAuth,
   createReservationWithAuth,
@@ -21,7 +21,6 @@ import { UserContext } from "../../context/UserContext";
 import { useNotification } from "../../context/NotificationContext";
 import { useNavigate } from "react-router-dom";
 import addTime from "../../utils/addTime";
-import axios from "axios";
 
 interface BookingProps {
   selectedServices: {
@@ -46,12 +45,7 @@ export default function Booking({
     async (reservationData: CreateReservationTypes) => {
       if (user?.id !== "0" && user?.id) {
         try {
-          const refreshResponse = await axios.get(
-            "http://localhost:3000/auth/refresh",
-            {
-              withCredentials: true,
-            }
-          );
+          const refreshResponse = await refreshToken();
           return createReservationWithAuth(
             reservationData,
             refreshResponse.data.accessToken

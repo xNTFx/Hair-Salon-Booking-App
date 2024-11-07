@@ -9,6 +9,7 @@ import { InfoBox } from "../InfoBox";
 import "./NavbarAccount.css";
 import { useNotification } from "../../context/NotificationContext";
 import Cookies from "js-cookie";
+import { logoutFunction } from "../../api/PostFetches";
 
 export default function NavbarAccount() {
   const { showNotification } = useNotification();
@@ -21,13 +22,7 @@ export default function NavbarAccount() {
   ) {
     e.preventDefault();
     try {
-      await axios.post(
-        "http://localhost:3000/auth/logout",
-        {},
-        {
-          withCredentials: true,
-        }
-      );
+      await logoutFunction();
 
       Cookies.remove("isLoggedIn");
 
