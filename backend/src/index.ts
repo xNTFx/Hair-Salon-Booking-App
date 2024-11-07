@@ -9,7 +9,7 @@ import { AuthRouter } from "./Routes/AuthRoutes";
 import { UserRouter } from "./Routes/UserRouter";
 
 const app = express();
-const port = process.env.BACKEND_PORT
+const port = parseInt(process.env.PORT, 10);
 
 app.use(cors());
 app.use(express.json());
