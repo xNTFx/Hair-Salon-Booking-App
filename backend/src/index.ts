@@ -9,25 +9,19 @@ import { AuthRouter } from "./Routes/AuthRoutes";
 import { UserRouter } from "./Routes/UserRouter";
 
 const app = express();
-const port = 3000;
+const port = {{ project.BACKEND_PORT }};
 
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-    credentials: true,
-  })
-);
+app.use(cors());
 
 app.use(express.json());
-
 app.use(cookieParser());
 
-app.use("/available_hours", AvailableHoursRouter);
-app.use("/employees", EmployeeRouter);
-app.use("/reservations", ReservationRouter);
-app.use("/services", ServiceRouter);
-app.use("/auth", AuthRouter);
-app.use("/user", UserRouter);
+app.use("/api/available_hours", AvailableHoursRouter);
+app.use("/api/employees", EmployeeRouter);
+app.use("/api/reservations", ReservationRouter);
+app.use("/api/services", ServiceRouter);
+app.use("/api/auth", AuthRouter);
+app.use("/api/user", UserRouter);
 
 app.get("/api", (req: Request, res: Response) => {
   res.send("Hairdresser Booking System API");
