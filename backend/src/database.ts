@@ -3,11 +3,11 @@ import pg from 'pg';
 const { Pool } = pg;
 
 const pool = new Pool({
-  user: {{ team.POSTGRES_USER }},
-  host: {{ team.HOST }},
-  database: {{ project.DB_NAME }},
-  password: {{ team.POSTGRES_PASSWORD }},
-  port: {{ team.POSTGRES_PORT }},
+  user: process.env.POSTGRES_USER,
+  host: process.env.HOST,
+  database: process.env.DB_NAME,
+  password: process.env.POSTGRES_PASSWORD,
+  port: parseInt(process.env.POSTGRES_PORT, 10)
 });
 
 export default pool;
