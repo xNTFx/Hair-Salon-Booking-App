@@ -9,10 +9,9 @@ import { AuthRouter } from "./Routes/AuthRoutes";
 import { UserRouter } from "./Routes/UserRouter";
 
 const app = express();
-const port = {{ project.BACKEND_PORT }};
+const port = process.env.BACKEND_PORT
 
 app.use(cors());
-
 app.use(express.json());
 app.use(cookieParser());
 
