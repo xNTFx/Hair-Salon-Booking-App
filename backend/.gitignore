@@ -1,3 +1,10 @@
+# Environment variables
 *.env
 .env*
-node_modules
+
+# Node modules
+node_modules/
+
+# Firebase SDK and configuration files
+firebase.json
+.firebaserc

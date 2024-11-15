@@ -1,5 +1,11 @@
-import { createContext, useContext, useState, ReactNode, useEffect } from "react";
-import Notification from "../components/Notification/Notification";
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
+import Notification from "../features/Notification/Notification";
 
 interface NotificationContextProps {
   showNotification: (message: string, options: NotificationOptions) => void;
@@ -26,8 +32,11 @@ export const useNotification = () => {
 };
 
 export const NotificationProvider = ({ children }: { children: ReactNode }) => {
-  const [notificationMessage, setNotificationMessage] = useState<string | null>(null);
-  const [notificationOptions, setNotificationOptions] = useState<NotificationOptions | null>(null);
+  const [notificationMessage, setNotificationMessage] = useState<string | null>(
+    null
+  );
+  const [notificationOptions, setNotificationOptions] =
+    useState<NotificationOptions | null>(null);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
 
   const clearNotification = () => {

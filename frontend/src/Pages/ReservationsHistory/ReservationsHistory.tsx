@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import { fetchHistoryReservations, refreshToken } from "../../api/GetFetches";
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../../context/UserContext";
-import LoadingPageComponent from "../../components/LoadingComponents/LoadingPageComponent";
+import LoadingPageComponent from "../../features/LoadingComponents/LoadingPageComponent";
 import formatTime from "../../utils/formatTime";
 import { Link } from "react-router-dom";
 

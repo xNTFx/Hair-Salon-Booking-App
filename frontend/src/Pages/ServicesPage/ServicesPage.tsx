@@ -3,7 +3,7 @@ import { IoClose } from "react-icons/io5";
 import { useQuery } from "react-query";
 
 import { fetchServices } from "../../api/GetFetches";
-import Booking from "../../components/Booking/Booking";
+import Booking from "../../features/Booking/Booking";
 import { ServiceTypes } from "../../types/Types";
 import convertTime from "../../utils/convertTime";
 import "./ServicesPage.css";

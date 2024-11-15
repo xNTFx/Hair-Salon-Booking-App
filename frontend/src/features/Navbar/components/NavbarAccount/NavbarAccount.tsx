@@ -3,12 +3,12 @@ import { IoLogInOutline } from "react-icons/io5";
 import { RxAvatar } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
 
-import { UserContext } from "../../context/UserContext";
-import { InfoBox } from "../InfoBox";
+import { UserContext } from "../../../../context/UserContext";
+import { InfoBox } from "../../../../components/InfoBox";
 import "./NavbarAccount.css";
-import { useNotification } from "../../context/NotificationContext";
+import { useNotification } from "../../../../context/NotificationContext";
 import Cookies from "js-cookie";
-import { logoutFunction } from "../../api/PostFetches";
+import { logoutFunction } from "../../../../api/PostFetches";
 
 export default function NavbarAccount() {
   const { showNotification } = useNotification();

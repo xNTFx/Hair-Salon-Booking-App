@@ -7,7 +7,7 @@ import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import ReservationsActive from "./Pages/ReservationsActive/ReservationsActive";
 import ServicesPage from "./Pages/ServicesPage/ServicesPage";
-import Navbar from "./components/Navbar/Navbar";
+import Navbar from "./features/Navbar/Navbar";
 import { UserProvider } from "./context/UserContext";
 import { NotificationProvider } from "./context/NotificationContext";
 import ReservationsHistory from "./Pages/ReservationsHistory/ReservationsHistory";
