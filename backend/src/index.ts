@@ -25,16 +25,18 @@ const allowedOrigins =
         "https://hairsalonbookingapp.pawelsobon.pl",
       ];
 
-cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Unauthorized origin"));
-    }
-  },
-  credentials: true,
-});
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Unauthorized origin"));
+      }
+    },
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(cookieParser());
