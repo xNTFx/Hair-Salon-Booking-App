@@ -11,6 +11,7 @@ import Navbar from "./components/Navbar/Navbar";
 import { UserProvider } from "./context/UserContext";
 import { NotificationProvider } from "./context/NotificationContext";
 import ReservationsHistory from "./Pages/ReservationsHistory/ReservationsHistory";
+import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage";
 
 function App() {
   const queryClient = new QueryClient();
@@ -21,6 +22,7 @@ function App() {
           <NotificationProvider>
             <Routes>
               <Route path="/" element={<Navbar />}>
+                <Route path="*" element={<NotFoundPage />} />
                 <Route index element={<HomePage />} />
                 <Route path="services" element={<ServicesPage />} />
                 <Route path="login" element={<Login />} />

@@ -29,7 +29,6 @@ export interface ReservationDTO {
   status: "PENDING" | "COMPLETED" | "CANCELLED";
 }
 
-// DTO for Service
 export interface ServiceDTO {
   serviceId?: number;
   serviceName: string;
