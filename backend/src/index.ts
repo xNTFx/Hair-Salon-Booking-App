@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import express, { Request, Response } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -9,26 +11,30 @@ import { AuthRouter } from "./Routes/AuthRoutes";
 import { UserRouter } from "./Routes/UserRouter";
 
 const app = express();
-const port = parseInt(process.env.PORT, 10);
+const port = Number(process.env.BACKEND_PORT);
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (
-        !origin ||
-        [
-          "https://www.hairsalonbookingapp.pawelsobon.pl",
-          "https://hairsalonbookingapp.pawelsobon.pl",
-        ].includes(origin)
-      ) {
-        callback(null, true);
-      } else {
-        callback(new Error("Unauthorized origin"));
-      }
-    },
-    credentials: true,
-  })
-);
+const allowedOrigins =
+  process.env.NODE_ENV === "development"
+    ? [
+        "http://localhost:5173",
+        "https://www.hairsalonbookingapp.pawelsobon.pl",
+        "https://hairsalonbookingapp.pawelsobon.pl",
+      ]
+    : [
+        "https://www.hairsalonbookingapp.pawelsobon.pl",
+        "https://hairsalonbookingapp.pawelsobon.pl",
+      ];
+
+cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Unauthorized origin"));
+    }
+  },
+  credentials: true,
+});
 
 app.use(express.json());
 app.use(cookieParser());
