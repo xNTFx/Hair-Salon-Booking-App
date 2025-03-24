@@ -1,31 +1,13 @@
-import { Router, Request, Response } from 'express';
-import { AvailableHoursDAO } from '../DAO/AvailableHoursDAO';
+import { Router } from "express";
+import { AvailableHoursController } from "../controllers/AvailableHoursController";
 
-const AvailableHoursRouter = Router();
-const availableHoursDAO = new AvailableHoursDAO();
+const router = Router();
 
-AvailableHoursRouter.get('/', async (req: Request, res: Response) => {
-  try {
-    const availableHours = await availableHoursDAO.getAll();
-    res.status(200).json(availableHours);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+router.get("/", AvailableHoursController.getAll);
 
-AvailableHoursRouter.get('/employee/:employeeId/reservation_date/:reservationDate/duration/:duration', async (req: Request, res: Response) => {
-  const { employeeId, reservationDate, duration } = req.params;
+router.get(
+  "/employee/:employeeId/reservation_date/:reservationDate/duration/:duration",
+  AvailableHoursController.getByEmployeeDateDuration
+);
 
-  try {
-    const availableHours = await availableHoursDAO.findAvailableHoursByEmployeeId(
-      parseInt(employeeId),
-      reservationDate,
-      duration
-    );
-    res.status(200).json(availableHours);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-export { AvailableHoursRouter };
+export default router;

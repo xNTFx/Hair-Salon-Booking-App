@@ -1,7 +1,7 @@
-import { ReservationDTO } from "../DTO/DTO";
-import pool from "../database";
+import { ReservationDTO } from "../models/Reservation";
+import pool from "../src/database";
 
-export class ReservationsDAO {
+export class ReservationsRepository {
   async getAllReservations(): Promise<ReservationDTO[]> {
     const result = await pool.query(`
       SELECT id AS "reservationId", employee_id AS "employeeId", service_id AS "serviceId", user_id AS "userId", 
@@ -81,7 +81,7 @@ export class ReservationsDAO {
   async getAllHistoryReservations(userId: string): Promise<ReservationDTO[]> {
     const result = await pool.query(
       `
-     SELECT r.id, 
+      SELECT r.id, 
              to_char(r.reservation_date, 'YYYY-MM-DD') AS "reservationDate",
              r.start_time AS "startTime", 
              r.end_time AS "endTime", 

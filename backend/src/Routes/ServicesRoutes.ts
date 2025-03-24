@@ -1,16 +1,8 @@
-import { Router, Request, Response } from 'express';
-import { ServicesDAO } from '../DAO/ServicesDAO';
+import { Router } from 'express';
+import { ServiceController } from '../controllers/ServiceController';
 
-const ServiceRouter = Router();
-const servicesDAO = new ServicesDAO();
+const router = Router();
 
-ServiceRouter.get('/', async (req: Request, res: Response) => {
-  try {
-    const services = await servicesDAO.getAllServices();
-    res.status(200).json(services);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+router.get('/', ServiceController.getAll);
 
-export { ServiceRouter };
+export default router;
