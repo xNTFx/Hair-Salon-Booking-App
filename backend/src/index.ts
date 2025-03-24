@@ -5,7 +5,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import routes from "./Routes/routes";
-import { corsOptions } from "../config/corsOptions";
+import { corsOptions } from "./config/corsOptions";
 
 const app = express();
 const port = Number(process.env.BACKEND_PORT) || 3000;

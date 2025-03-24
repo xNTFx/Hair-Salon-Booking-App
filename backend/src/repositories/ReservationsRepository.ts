@@ -1,5 +1,5 @@
 import { ReservationDTO } from "../models/Reservation";
-import pool from "../src/database";
+import pool from "../database";
 
 export class ReservationsRepository {
   async getAllReservations(): Promise<ReservationDTO[]> {

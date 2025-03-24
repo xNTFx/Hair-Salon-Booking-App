@@ -1,6 +1,5 @@
-import { Employee } from "../../models/Employee";
-import { EmployeeRepository } from "../../repositories/EmployeeRepository";
-
+import { Employee } from "../models/Employee";
+import { EmployeeRepository } from "../repositories/EmployeeRepository";
 
 export class EmployeeService {
   private repository = new EmployeeRepository();

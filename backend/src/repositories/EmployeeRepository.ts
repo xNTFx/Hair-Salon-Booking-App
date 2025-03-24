@@ -1,5 +1,5 @@
 import { Employee } from "../models/Employee";
-import pool from "../src/database";
+import pool from "../database";
 
 export class EmployeeRepository {
   async findAll(): Promise<Employee[]> {

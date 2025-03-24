@@ -1,5 +1,4 @@
-import { ReservationsRepository } from "../../repositories/ReservationsRepository";
-
+import { ReservationsRepository } from "../repositories/ReservationsRepository";
 
 export class ReservationService {
   private repository = new ReservationsRepository();

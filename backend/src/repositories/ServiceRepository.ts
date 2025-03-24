@@ -1,5 +1,5 @@
 import { Service } from "../models/Service";
-import pool from "../src/database";
+import pool from "../database";
 
 export class ServiceRepository {
   async findAll(): Promise<Service[]> {

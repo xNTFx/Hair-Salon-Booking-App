@@ -1,5 +1,5 @@
 import { AvailableHours } from "../models/AvailableHours";
-import pool from "../src/database";
+import pool from "../database";
 
 export class AvailableHoursRepository {
   async findAll(): Promise<AvailableHours[]> {

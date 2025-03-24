@@ -1,6 +1,5 @@
-import { AvailableHours } from "../../models/AvailableHours";
-import { AvailableHoursRepository } from "../../repositories/AvailableHoursRepository";
-
+import { AvailableHours } from "../models/AvailableHours";
+import { AvailableHoursRepository } from "../repositories/AvailableHoursRepository";
 
 export class AvailableHoursService {
   private repository = new AvailableHoursRepository();

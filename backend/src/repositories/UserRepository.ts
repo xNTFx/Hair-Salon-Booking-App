@@ -1,5 +1,5 @@
 import { User } from "../models/User";
-import pool from "../src/database";
+import pool from "../database";
 
 export class UserRepository {
   async findByUsername(username: string): Promise<User | undefined> {
